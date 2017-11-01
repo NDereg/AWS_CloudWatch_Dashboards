@@ -1,0 +1,37 @@
+stages:
+ - package
+ - deploy
+
+cache:
+  key: "$CI_PIPELINE_ID"
+  untracked: true
+
+variables:
+  LAMBDA_RUNTIME: python3.6
+  FILE_FUNCTION_NAME: handler
+  LAMBDA_HANDLER: $FILE_FUNCTION_NAME.lambda_handler
+  AWS_DEFAULT_REGION: us-east-1
+  LAMBDA_FN_NAME: CW-Dashboard
+
+
+zip-files:
+  stage: package
+  tags:
+    - default
+  script:
+    - apk add --no-cache zip
+    - zip -r "lambda.zip" . -x *.git* *vscode* *pycache*
+
+
+update-lambda:
+  stage: deploy
+  tags:
+    - default
+  variables:
+    AWS_ACCESS_KEY_ID: $PROD_AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY: $PROD_AWS_SECRET_ACCESS_KEY
+  script:
+    - apk add --no-cache py-pip
+    - pip install awscli
+    - aws lambda update-function-configuration --function-name $LAMBDA_FN_NAME --handler $LAMBDA_HANDLER --runtime $LAMBDA_RUNTIME --timeout 55
+    - aws lambda update-function-code --function-name $LAMBDA_FN_NAME --zip-file fileb://lambda.zip

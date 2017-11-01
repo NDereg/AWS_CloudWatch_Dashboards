@@ -1,0 +1,56 @@
+{
+    // parameters for the AWS account
+    "default": {
+        "production": {
+            "account": ":123456789123:"
+        }
+    },
+
+    // resource names and tags
+    "items": {
+        "albApi": "elbcwapi",
+        "albFe": "elbcwfe",
+        "fe": "CW-WEB-FE",
+        "api": "CW-WEB-API",
+        "sql": "PSA-SQL",
+        "tag1": "tag:Name",
+        "tag2": "tag:CWName"
+    },
+
+    // individual CloudWatch dashboards for each region
+    "environments": [
+        {
+            "environment": "production",
+            "region": "us-east-1",
+            "dashboard": "NA-Dash",
+            "cluster": "na-cache-vpc1",
+            "tgRegion": [
+                "us-east-1c",
+                "us-east-1d",
+                "us-east-1e"
+            ]
+        },
+        {
+            "environment": "production",
+            "region": "eu-west-1",
+            "dashboard": "EU-Dash",
+            "cluster": "eu-cache-vpc1",
+            "tgRegion": [
+                "eu-west-1a",
+                "eu-west-1b",
+                "eu-west-1c"
+            ]
+        },
+        {
+            "environment": "production",
+            "region": "ap-southeast-2",
+            "dashboard": "AU-Dash",
+            "cluster": "au-cache-vpc1",
+            "tgRegion": [
+                "ap-southeast-2a",
+                "ap-southeast-2b",
+                "ap-southeast-2c"
+            ]
+        }
+    ]
+}
