@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-CW-Manage-Dashboard
+CW-Dashboard
 
 handler.lambda_handler calls .lib/cw_dashboard.py
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-CW-Manage-Dashboard
+CW-Dashboard
 
 TO DO: None
 """
